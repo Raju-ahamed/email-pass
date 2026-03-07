@@ -2,6 +2,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
 import { auth } from '../../firebase.init';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { NavLink } from 'react-router';
 
 
 const Register = () => {
@@ -51,7 +52,7 @@ const Register = () => {
         <div className="hero bg-base-200 min-h-screen">
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <div className="text-center lg:text-left">
-                    <h1 className="text-5xl font-bold">Login now!</h1>
+                    <h1 className="text-5xl font-bold">Register!</h1>
 
                 </div>
                 <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
@@ -82,6 +83,8 @@ const Register = () => {
                             </label>
                             <button className="btn btn-neutral mt-4">Register</button>
                         </form>
+                        <h1>Already Have an account <NavLink to="/login"><span className='text-blue-600 underline'>login</span></NavLink></h1>
+                        
                         {
                             errorMsg && <p className='text-red-500'>{errorMsg}</p>
                         }
