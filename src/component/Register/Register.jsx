@@ -12,6 +12,8 @@ const Register = () => {
 
         const email = e.target.email.value;
         const password = e.target.password.value;
+        const checkbox = e.target.checkbox.checked;
+        
         setSucses(false);
         setErrorMsg('')
         const passwordExUp = /^(?=.*[A-Z]).+$/;
@@ -29,7 +31,10 @@ const Register = () => {
             setErrorMsg('Enter One Number');
             return;
         }
-
+        if(!checkbox){
+            setErrorMsg("Please clicked checkbox")
+            return;
+        }
         createUserWithEmailAndPassword(auth, email, password).then(result => {
             console.log(result);
             setSucses(true);
@@ -64,10 +69,17 @@ const Register = () => {
                                     className="input"
                                     placeholder="Password" />
                                 <p onClick={() => setShowPass(!showPass)} className='btn btn-xs top-2 right-4 absolute'>{
-                                    showPass ? <FaEyeSlash/>:<FaEye/>
+                                    showPass ? <FaEyeSlash /> : <FaEye />
                                 }</p>
                             </div>
                             <div><a className="link link-hover">Forgot password?</a></div>
+                            <label className="label mt-1">
+                                <input 
+                                type="checkbox"
+                                name='checkbox'
+                                className="checkbox" />
+                                Remember me
+                            </label>
                             <button className="btn btn-neutral mt-4">Register</button>
                         </form>
                         {
