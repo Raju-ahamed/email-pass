@@ -6,6 +6,7 @@ const links = <>
     <li><NavLink to="/">Home</NavLink></li>
     <li><NavLink to="/login">Login</NavLink></li>
     <li><NavLink to="/sginup">Sgin up</NavLink></li>
+    <li><NavLink to="/register">Register</NavLink></li>
 </>
 const Header = () => {
     return (
