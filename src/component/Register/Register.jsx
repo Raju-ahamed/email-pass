@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import React, { useState } from 'react';
 import { auth } from '../../firebase.init';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -14,7 +14,7 @@ const Register = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
         const checkbox = e.target.checkbox.checked;
-        
+
         setSucses(false);
         setErrorMsg('')
         const passwordExUp = /^(?=.*[A-Z]).+$/;
@@ -32,13 +32,16 @@ const Register = () => {
             setErrorMsg('Enter One Number');
             return;
         }
-        if(!checkbox){
+        if (!checkbox) {
             setErrorMsg("Please clicked checkbox")
             return;
         }
         createUserWithEmailAndPassword(auth, email, password).then(result => {
             console.log(result);
             setSucses(true);
+            sendEmailVerification(auth.currentUser).then(()=>{
+                alert("an verfication email is sent")
+            })
         }).catch(error => {
             setErrorMsg(error.message)
             console.log(error)
@@ -75,16 +78,16 @@ const Register = () => {
                             </div>
                             <div><a className="link link-hover">Forgot password?</a></div>
                             <label className="label mt-1">
-                                <input 
-                                type="checkbox"
-                                name='checkbox'
-                                className="checkbox" />
+                                <input
+                                    type="checkbox"
+                                    name='checkbox'
+                                    className="checkbox" />
                                 Remember me
                             </label>
                             <button className="btn btn-neutral mt-4">Register</button>
                         </form>
                         <h1>Already Have an account <NavLink to="/login"><span className='text-blue-600 underline'>login</span></NavLink></h1>
-                        
+
                         {
                             errorMsg && <p className='text-red-500'>{errorMsg}</p>
                         }
